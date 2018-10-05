@@ -20,7 +20,9 @@
     NB_TeamTable.prototype = {
       preload: function(entityID) {
         this.entityID = entityID;
-        this.text = "Hello \n World";
+        Entities.editEntity(entityID, {
+            text: "Hello \n World"
+        });
       },
       updateTeamComp: function(entityID, teamInfos) {
         
