@@ -61,7 +61,7 @@
             type: "Model",
             modelURL: RED_SUBMARINE_FBX_PATH,
             position: Vec3.sum(properties.position, {x: 0, y: 0, z: -10}),
-            rotation: Vec3.multiplyVbyV(properties.rotation, {x: 1, y: -1, z: 1}),//al contrario
+            rotation: Vec3.sum(properties.rotation, {x: 0, y: 180, z: 0}),//al contrario
             parentID: this.entityID,
             userData: "{ \"grabbableKey\": { \"grabbable\": false } }",
             shapeType: "simple-compound",
