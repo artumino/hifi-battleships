@@ -13,7 +13,7 @@
     const YELLOW_SUBMARINE_FBX_PATH = "atp:/NavalBattle/Yellow_Cartoon_Submarine_Final.fbx"
     const RED_SUBMARINE_FBX_PATH = "atp:/NavalBattle/Red_Cartoon_Submarine_Final.fbx"
     const LAUNCHBUTTON_FBX_PATH = "atp:/NavalBattle/LaunchButton_Final_Red.fbx"
-    const SUBMARINE_DIMENSIONS = {x: 13.0, y: -11.1, z: 15};
+    const SUBMARINE_DIMENSIONS = {x: 7.7175, y: 3.2999, z: 0.2196};
 
     //LeaderBoards
     var yellowLeaderBoardID;
@@ -56,7 +56,7 @@
             type: "Model",
             modelURL: RED_SUBMARINE_FBX_PATH,
             position: Vec3.sum(properties.position, {x: 10, y: 0, z: 0}),
-            rotation: Vec3.multiply(properties.rotation, {x: 1, y: -1, z: 1}),//al contrario
+            rotation: properties.rotation,//Vec3.multiply(properties.rotation, {x: 1, y: -1, z: 1}),//al contrario
             dimensions: SUBMARINE_DIMENSIONS
           });
         print("redSubmarineID created: " + redSubmarineID);
