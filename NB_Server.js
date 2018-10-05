@@ -41,13 +41,16 @@
 
     NB_Server.prototype.buildAll = function() 
     {
+        //getting properties of parent
         var properties = Entities.getEntityProperties(this.entityID, ["rotation", "position"]);
+
 
         this.yellowSubmarineID = Entities.addEntity({
             type: "Model",
             modelURL: YELLOW_SUBMARINE_FBX_PATH,
-            position: Vec3.sum(properties.position, {x: -10, y: 0, z: 0}),
+            position: Vec3.sum(properties.position, {x: 0, y: 0, z: 10}),
             rotation: properties.rotation,
+            parentID: this.entityID,
             dimensions: SUBMARINE_DIMENSIONS
           });
         print("yellowSubmarineID created: " + yellowSubmarineID);
@@ -55,12 +58,14 @@
         this.redSubmarineID = Entities.addEntity({
             type: "Model",
             modelURL: RED_SUBMARINE_FBX_PATH,
-            position: Vec3.sum(properties.position, {x: 10, y: 0, z: 0}),
-            rotation: properties.rotation,//Vec3.multiply(properties.rotation, {x: 1, y: -1, z: 1}),//al contrario
+            position: Vec3.sum(properties.position, {x: 0, y: 0, z: -10}),
+            rotation: Vec3.multiplyVbyV(properties.rotation, {x: 1, y: -1, z: 1}),//al contrario
+            parentID: this.entityID,
             dimensions: SUBMARINE_DIMENSIONS
           });
         print("redSubmarineID created: " + redSubmarineID);
         
+        //create more stuff TODO
     };
   
     return new NB_Server();
