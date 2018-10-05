@@ -90,7 +90,7 @@
         
         this.redTeamBoardID = Entities.addEntity({
             type: "Text",
-            position: Vec3.sum(properties.position, {x: teamBoardsXOffset, y: 0, z: -10}),
+            position: Vec3.sum(properties.position, {x: -teamBoardsXOffset, y: 0, z: -10}),
             rotation: properties.rotation,
             parentID: this.entityID,
             text: "Red Team:",
