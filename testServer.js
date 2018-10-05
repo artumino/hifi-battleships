@@ -22,9 +22,9 @@
       this.entityID = entityID;
       print("Loaded server entity " + entityID);
     },
-    echo: function(entityID, message, playerID) {
-      print("Called echo with params " + message + " and " + playerID);
-      Entities.callEntityClientMethod(playerID, this.entityID, "displayMessage", [message]);
+    echo: function(entityID, infos) {
+      print("Called echo with params " + infos[0] + " and " + infos[1]);
+      Entities.callEntityClientMethod(infos[1], this.entityID, "displayMessage", [infos[0]]);
     },
     unload: function(entityID) {
         //Unload....
