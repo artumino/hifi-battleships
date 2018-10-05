@@ -51,6 +51,8 @@
             position: Vec3.sum(properties.position, {x: 0, y: 0, z: 10}),
             rotation: properties.rotation,
             parentID: this.entityID,
+            grabbable: false,
+            shapeType: "static-mesh",
             dimensions: SUBMARINE_DIMENSIONS
           });
         print("yellowSubmarineID created: " + yellowSubmarineID);
@@ -61,6 +63,8 @@
             position: Vec3.sum(properties.position, {x: 0, y: 0, z: -10}),
             rotation: Vec3.multiplyVbyV(properties.rotation, {x: 1, y: -1, z: 1}),//al contrario
             parentID: this.entityID,
+            grabbable: false,
+            shapeType: "static-mesh",
             dimensions: SUBMARINE_DIMENSIONS
           });
         print("redSubmarineID created: " + redSubmarineID);
