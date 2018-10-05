@@ -25,8 +25,8 @@
     btnPress: function(entityID, pointerEvent) {
       Window.displayAnnouncement("Hello Local!");
       Entities.callEntityServerMethod(this.entityID, "echo", ["Hello World", MyAvatar.sessionUUID]);
-      Window.displayAnnouncement("entity "+this.entityID);
-      Window.displayAnnouncement("MyAvatar.sessionUUID "+MyAvatar.sessionUUID);
+      //Window.displayAnnouncement("entity "+this.entityID);
+      //Window.displayAnnouncement("MyAvatar.sessionUUID "+MyAvatar.sessionUUID);
     },
     displayMessage: function(entityID, message) {
       Window.displayAnnouncement(message);
