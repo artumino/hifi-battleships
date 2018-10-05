@@ -20,8 +20,10 @@
   TestServer.prototype = {
     preload: function(entityID) {
       this.entityID = entityID;
+      print("Loaded server entity " + entityID);
     },
     echo: function(entityID, message, playerID) {
+      print("Called echo with params " + message + " and " + playerID);
       Entities.callEntityClientMethod(playerID, this.entityID, "displayMessage", [message]);
     },
     unload: function(entityID) {
