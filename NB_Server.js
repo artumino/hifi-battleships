@@ -27,21 +27,19 @@
     const GAME_DESCRIPTION = "To Join a Team press the button at the respective submarine.\n\nTo start a game press start button."
 
     //Enums
-    const GameStage
-    {
-        Register: 0
-        YellowVoting: 1
-        YellowVoted: 2
-        RedVoting: 3
-        RedVoted: 4
-        RedWin: 5
-        YellowWin: 6
-    }
+    const GameStage = {
+        Register: 0,
+        YellowVoting: 1,
+        YellowVoted: 2,
+        RedVoting: 3,
+        RedVoted: 4,
+        RedWin: 5,
+        YellowWin: 6,
+    };
 
-    const Team
-    {
-        Yellow: 0
-        Red: 1
+    const Team = {
+        Yellow: 0,
+        Red: 1,
         Both: 2
     }
 
