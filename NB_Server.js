@@ -221,13 +221,13 @@
 
         for (i = 0; i < gameState.yellowPlayers.length; i++)
         {
-            var avatar = AvatarManage.getAvatar(gameState.yellowPlayers[i]).sessionDisplayName;
+            var avatar = AvatarManager.getAvatar(gameState.yellowPlayers[i]).sessionDisplayName;
             yellowTeamComp += avatar + "\n";
         }
 
         for (i = 0; i < gameState.redPlayers.length; i++)
         {
-            var avatar = AvatarManage.getAvatar(gameState.redPlayers[i]).sessionDisplayName;
+            var avatar = AvatarManager.getAvatar(gameState.redPlayers[i]).sessionDisplayName;
             redTeamComp += avatar + "\n";
         }
 

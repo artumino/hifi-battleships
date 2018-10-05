@@ -1,0 +1,40 @@
+{
+    "DataVersion": 0,
+    "Entities": [
+        {
+            "clientOnly": false,
+            "created": "2018-10-05T23:35:27Z",
+            "dimensions": {
+                "blue": 13.206245422363281,
+                "green": 4.8826823234558105,
+                "red": 12.813119888305664,
+                "x": 12.813119888305664,
+                "y": 4.8826823234558105,
+                "z": 13.206245422363281
+            },
+            "id": "{4ce6813a-c47f-4aeb-9748-8309aa84549d}",
+            "lastEdited": 1538782615975181,
+            "lastEditedBy": "{9a697ea9-6c99-4def-a65d-78691f8806d7}",
+            "name": "Naval Battle v0",
+            "owningAvatarID": "{00000000-0000-0000-0000-000000000000}",
+            "queryAACube": {
+                "scale": 19.037372589111328,
+                "x": -9.518686294555664,
+                "y": -9.518686294555664,
+                "z": -9.518686294555664
+            },
+            "rotation": {
+                "w": 1,
+                "x": -1.52587890625e-05,
+                "y": -1.52587890625e-05,
+                "z": -1.52587890625e-05
+            },
+            "serverScripts": "https://raw.githubusercontent.com/artumino/hifi-battleships/8e4440960cc304def756b3dd01896bc6afc44519/NB_Server.js",
+            "shapeType": "box",
+            "type": "Zone",
+            "userData": "{\"grabbableKey\":{\"grabbable\":false}}"
+        }
+    ],
+    "Id": "{e2faaab6-ff4c-40d9-b40d-d6f6f5d6e603}",
+    "Version": 93
+}
