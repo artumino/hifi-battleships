@@ -79,8 +79,8 @@
         
         this.yellowTeamBoardID = Entities.addEntity({
             type: "Text",
-            position: Vec3.sum(properties.position, {x: teamBoardsXOffset, y: 0, z: 10}),
-            rotation: properties.rotation,
+            position: Vec3.sum(properties.position, {x: -teamBoardsXOffset, y: 0, z: 10}),
+            rotation: Quat.multiply(properties.rotation, Quat.fromPitchYawRollDegrees(0,180,0)),//al contrario
             parentID: this.entityID,
             text: "Yellow Team:",
             userData: "{ \"grabbableKey\": { \"grabbable\": false } }",
@@ -90,8 +90,8 @@
         
         this.redTeamBoardID = Entities.addEntity({
             type: "Text",
-            position: Vec3.sum(properties.position, {x: -teamBoardsXOffset, y: 0, z: -10}),
-            rotation: Quat.multiply(properties.rotation, Quat.fromPitchYawRollDegrees(0,180,0)),//al contrario
+            position: Vec3.sum(properties.position, {x: teamBoardsXOffset, y: 0, z: -10}),
+            rotation: properties.rotation,
             parentID: this.entityID,
             text: "Red Team:",
             userData: "{ \"grabbableKey\": { \"grabbable\": false } }",
@@ -102,8 +102,8 @@
         //create more stuff TODO
         this.gameDescriptioID = Entities.addEntity({
             type: "Text",
-            position: Vec3.sum(properties.position, {x: teamBoardsXOffset, y: 0, z: 0}),
-            rotation: Quat.multiply(properties.rotation, Quat.fromPitchYawRollDegrees(0,90,0)),
+            position: Vec3.sum(properties.position, {x: -teamBoardsXOffset * 1.3, y: 0, z: 0}),
+            rotation: Quat.multiply(properties.rotation, Quat.fromPitchYawRollDegrees(0,-90,0)),
             parentID: this.entityID,
             text: GAME_DESCRIPTION,
             userData: "{ \"grabbableKey\": { \"grabbable\": false } }",
