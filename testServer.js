@@ -21,7 +21,7 @@
     preload: function(entityID) {
       this.entityID = entityID;
     },
-    echo: function(message, playerID) {
+    echo: function(entityID, message, playerID) {
       Entities.callEntityClientMethod(playerID, this.entityID, "displayMessage", [message]);
     },
     unload: function(entityID) {
