@@ -52,7 +52,7 @@
             rotation: properties.rotation,
             parentID: this.entityID,
             userData: "{ \"grabbableKey\": { \"grabbable\": false } }",
-            shapeType: "simple-hull",
+            shapeType: "simple-compound",
             dimensions: SUBMARINE_DIMENSIONS
           });
         print("yellowSubmarineID created: " + yellowSubmarineID);
