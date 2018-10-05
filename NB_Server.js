@@ -201,7 +201,7 @@
                 if(oppositeTeamIndex != -1)
                     oppositeTeam.splice(oppositeTeamIndex, 1); //Remove from opposite team, add to new
 
-                selectedTeam.put(playerID);
+                selectedTeam.push(playerID);
                 this.announceToPlayer(playerID, "Registered to team " + ((teamID == Team.Red) ? "Red" : "Yellow"));
             }
 
