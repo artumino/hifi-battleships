@@ -11,13 +11,13 @@
 
 (function(){
 
-    function BM_TeamTable()
+    function NB_TeamTable()
     {
       this.remotelyCallable = ["updateTeamComp"];
     };
   
   
-    BM_TeamTable.prototype = {
+    NB_TeamTable.prototype = {
       preload: function(entityID) {
         this.entityID = entityID;
         this.text = "Hello \n World";
@@ -30,5 +30,5 @@
       }
     };
   
-    return new TestClient();
+    return new NB_TeamTable();
   });
