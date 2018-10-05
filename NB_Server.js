@@ -41,7 +41,7 @@
 
     NB_Server.prototype.buildAll = function() 
     {
-        var properties = Entities.getEntityProperties(entityID, ["rotation", "position"]);
+        var properties = Entities.getEntityProperties(this.entityID, ["rotation", "position"]);
 
         this.yellowSubmarineID = Entities.addEntity({
             type: "Model",
