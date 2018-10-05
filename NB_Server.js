@@ -61,9 +61,9 @@
     //GameState
     var gameState =
     {
-        stage = GameStage.Register,
-        yellowPlayers = [],
-        redPlayers = []
+        stage: GameStage.Register,
+        yellowPlayers: [],
+        redPlayers: []
     };
 
 
