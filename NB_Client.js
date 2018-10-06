@@ -30,6 +30,7 @@
     },
     parseTeamComp: function(channel, data, senderID, localOnly) 
     {
+      print("Got message from " + senderID);
       if(senderID == this.entityID)
       {
         var redTeamComp = "Red Team:\n";
