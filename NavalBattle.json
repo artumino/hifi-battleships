@@ -29,8 +29,8 @@
                 "y": -1.52587890625e-05,
                 "z": -1.52587890625e-05
             },
-            "script": "https://raw.githubusercontent.com/artumino/hifi-battleships/3d34f552cafd3a369f8bc6013907fa829efbf694/NB_Client.js",
-            "serverScripts": "https://raw.githubusercontent.com/artumino/hifi-battleships/3d34f552cafd3a369f8bc6013907fa829efbf694/NB_Server.js",
+            "script": "https://raw.githubusercontent.com/artumino/hifi-battleships/031a8441eb92fb2f820c1d666fad25be38e3f118/NB_Client.js",
+            "serverScripts": "https://raw.githubusercontent.com/artumino/hifi-battleships/031a8441eb92fb2f820c1d666fad25be38e3f118/NB_Server.js",
             "shapeType": "box",
             "type": "Zone",
             "userData": "{\"grabbableKey\":{\"grabbable\":false}}"
