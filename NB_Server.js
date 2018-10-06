@@ -15,7 +15,6 @@
     const RED_SUBMARINE_FBX_PATH = "atp:/NavalBattle/Red_Cartoon_Submarine_Final.fbx"
     const LAUNCHBUTTON_FBX_PATH = "atp:/NavalBattle/LaunchButton_Final_Red.fbx"
 
-    const CLIENT_SCRIPT_PATH = "https://raw.githubusercontent.com/artumino/hifi-battleships/master/NB_Client.js"
     const LAUNCHBUTTON_SCRIPT_PATH = "https://raw.githubusercontent.com/artumino/hifi-battleships/master/NB_LaunchButton.js"
 
     //Dimensions
@@ -84,12 +83,6 @@
 
     NB_Server.prototype.buildAll = function() 
     {
-        //Adds client script
-        Entities.editEntity(this.entityID,
-        {
-            script: CLIENT_SCRIPT_PATH
-        });
-
         //getting properties of parent
         var properties = Entities.getEntityProperties(this.entityID, ["rotation", "position"]);
 
