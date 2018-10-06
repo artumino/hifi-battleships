@@ -20,6 +20,9 @@
   NB_Client.prototype = {
     preload: function(entityID) {
       this.entityID = entityID;
+      Script.include("NB_Lib.js", function() {
+        print("NB_Lib loaded!");
+    });
     },
     announceMessage: function(entityID, message) {
       Window.displayAnnouncement(message);
