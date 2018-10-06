@@ -47,14 +47,6 @@ NB_Lib.prototype.getAbsolutePosition = function(relativePosition)
 {
     var properties = Entities.getEntityProperties(this.entityID, ["position", "rotation"]);
     return Vec3.sum(properties.position, Vec3.multiplyQbyV(properties.rotation, relativePosition));
-    //var position = Entities.getEntityProperties(this.entityID, ["position"]).position;
-    //return Vec3.sum(position, relativePosition);
-}
-
-NB_Lib.prototype.getAbsoluteRotatedPosition = function(relativePosition)
-{
-    var properties = Entities.getEntityProperties(this.entityID, ["position", "rotation"]);
-    return Vec3.sum(properties.position, Vec3.multiplyQbyV(properties.rotation, relativePosition));
 }
 
 NB_Lib.prototype.getAbsoluteRotation= function(relativeRotationEuler)
@@ -86,6 +78,7 @@ function helloWorld()
 //send message only on the 3-2-and 1 indexes.
 function timerToStart(index)
 {
+    print("indicee" +index);
     index++;
 
 }

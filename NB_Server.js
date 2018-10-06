@@ -177,14 +177,14 @@
     NB_Server.prototype.buildPlayground = function(properties) 
     {
         //Number of lines to compute for one side
-        var horizontalLineDimension = { x: PLAYGROUND_SIZE.x + LINE_STROKE, y: LINE_STROKE, z: LINE_STROKE };
+        var horizontalLineDimension = { x: PLAYGROUND_SIZE.x + LINE_STROKE*2, y: LINE_STROKE, z: LINE_STROKE };
         var verticalLineDimension = { x: LINE_STROKE, y: LINE_STROKE, z: PLAYGROUND_SIZE.z };
         var xIncrement = PLAYGROUND_SIZE.x / (PLAYGROUND_DIVISIONS.x - 1);
         var zIncrement = PLAYGROUND_SIZE.z / (PLAYGROUND_DIVISIONS.y - 1);
         var yOffset = (LINE_STROKE/2) - (SUBMARINE_DIMENSIONS.y/2);
         var zOffset = (LINE_STROKE/2);
         var verticalLinesZ = zOffset + (verticalLineDimension.z / 2);
-        var horizontallLinesX = ((verticalLineDimension.x + LINE_STROKE) / 2);
+        var horizontallLinesX = ((verticalLineDimension.x + LINE_STROKE*2) / 2);
 
         // Creates vertical lines
         for(var i = 0; i < PLAYGROUND_DIVISIONS.x; i++)
@@ -295,11 +295,11 @@
 
                 //start timer
                 var index = 0;
-                timerToStartInterval = setInterval(timerToStart, 3000,index); //3000 == 3sec
+                var timerToStartInterval = setInterval(timerToStart, 3000, index, timerToStartInterval); //3000 == 3sec
                 if(index == 3){
                     clearInterval(timerToStartInterval);
                     //all ready to go! broadcast message
-                    this.announceToPlayer(playerID, "GAME READY!");                    
+                    this.broadcast(playerID, "GAME READY!");                    
                     //this.startGame(); Function TODO                                        
                 }
             }
