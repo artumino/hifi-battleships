@@ -22,7 +22,7 @@
   NB_Client.prototype = {
     preload: function(entityID) {
       this.entityID = entityID;
-      print("Registering for messages on channel " + TEAM_CHANNEL);
+      Window.displayAnnouncement("Registering for messages on channel " + TEAM_CHANNEL);
       Messages.subscribe(TEAM_CHANNEL);
       Messages.messageReceived.connect(this.parseTeamComp);
     },
@@ -31,7 +31,7 @@
     },
     parseTeamComp: function(channel, message, senderID, localOnly) 
     {
-      print("Got message from " + senderID);
+      Window.displayAnnouncement("Got message from " + senderID);
       if(senderID == this.entityID)
       {
         var data = JSON.parse(message);
