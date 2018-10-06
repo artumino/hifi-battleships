@@ -81,7 +81,7 @@
         yellowLaunchButtonID = Entities.addEntity({
             type: "Model",
             modelURL: LAUNCHBUTTON_FBX_PATH,
-            position: Vec3.sum(properties.position, {x: 0, y: (LAUNCHBUTTON_DIMENSIONS.y / 2)-(SUBMARINE_DIMENSIONS.y/2), z: PLAYGROUND_SIZE.z + 0.5}),
+            position: this.lib.getAbsolutePosition({x: 0, y: (LAUNCHBUTTON_DIMENSIONS.y / 2)-(SUBMARINE_DIMENSIONS.y/2), z: PLAYGROUND_SIZE.z + 0.5}),
             rotation: properties.rotation,
             parentID: this.entityID,
             userData: "{ \"grabbableKey\": { \"grabbable\": false }, \"teamId\": 0 }",
@@ -94,8 +94,8 @@
         redSubmarineID = Entities.addEntity({
             type: "Model",
             modelURL: RED_SUBMARINE_FBX_PATH,
-            position: Vec3.sum(properties.position, {x: 0, y: 0, z: -PLAYGROUND_SIZE.z - 0.25}),
-            rotation: Quat.multiply(properties.rotation, Quat.fromPitchYawRollDegrees(0,180,0)),//al contrario
+            position: this.lib.getAbsolutePosition({x: 0, y: 0, z: -PLAYGROUND_SIZE.z - 0.25}),
+            rotation: this.lib.getAbsoluteRotation({x: 0, y: 180, z: 0}),//al contrario
             parentID: this.entityID,
             userData: "{ \"grabbableKey\": { \"grabbable\": false } }",
             shapeType: "simple-compound",
@@ -106,8 +106,8 @@
         redLaunchButtonID = Entities.addEntity({
             type: "Model",
             modelURL: LAUNCHBUTTON_FBX_PATH,
-            position: Vec3.sum(properties.position, {x: 0, y: (LAUNCHBUTTON_DIMENSIONS.y / 2)-(SUBMARINE_DIMENSIONS.y/2), z: -PLAYGROUND_SIZE.z - 0.5}),
-            rotation: Quat.multiply(properties.rotation, Quat.fromPitchYawRollDegrees(0,180,0)),
+            position: this.lib.getAbsolutePosition({x: 0, y: (LAUNCHBUTTON_DIMENSIONS.y / 2)-(SUBMARINE_DIMENSIONS.y/2), z: -PLAYGROUND_SIZE.z - 0.5}),
+            rotation: this.lib.getAbsoluteRotation({x: 0, y: 180, z: 0}),
             parentID: this.entityID,
             userData: "{ \"grabbableKey\": { \"grabbable\": false }, \"teamId\": 1 }",
             shapeType: "simple-compound",
@@ -121,7 +121,7 @@
         
         yellowTeamBoardID = Entities.addEntity({
             type: "Text",
-            position: Vec3.sum(properties.position, {x: -teamBoardsXOffset, y: 0, z: PLAYGROUND_SIZE.z + 0.25}),
+            position: this.lib.getAbsolutePosition({x: -teamBoardsXOffset, y: 0, z: PLAYGROUND_SIZE.z + 0.25}),
             rotation: Quat.multiply(properties.rotation, Quat.fromPitchYawRollDegrees(0,180,0)),//al contrario
             parentID: this.entityID,
             text: "Yellow Team:",
@@ -132,7 +132,7 @@
         
         redTeamBoardID = Entities.addEntity({
             type: "Text",
-            position: Vec3.sum(properties.position, {x: -teamBoardsXOffset, y: 0, z: -PLAYGROUND_SIZE.z - 0.25}),
+            position: this.lib.getAbsolutePosition({x: -teamBoardsXOffset, y: 0, z: -PLAYGROUND_SIZE.z - 0.25}),
             rotation: properties.rotation,
             parentID: this.entityID,
             text: "Red Team:",
@@ -147,26 +147,39 @@
         //create more stuff TODO
         gameDescriptionID = Entities.addEntity({
             type: "Text",
-            position: Vec3.sum(properties.position, {x: -teamBoardsXOffset * 1.3, y: 0, z: 0}),
-            rotation: Quat.multiply(properties.rotation, Quat.fromPitchYawRollDegrees(0,-90,0)),
+            position: this.lib.getAbsolutePosition({x: -teamBoardsXOffset * 1.3, y: 0, z: 0}),
+            rotation: this.lib.getAbsoluteRotation({x: 0, y: -90, z: 0}),
             parentID: this.entityID,
             text: GAME_DESCRIPTION,
             userData: "{ \"grabbableKey\": { \"grabbable\": false } }",
             dimensions: {x: 2, y: 1.5, z:0.01}
           });
         print("gameDescriptionID created: " + gameDescriptionID);
+        
+        //starting button
+        gameLaunchResetButtonID = Entities.addEntity({
+            type: "Model",
+            modelURL: LAUNCHBUTTON_FBX_PATH,
+            position: this.lib.getAbsolutePosition({x: 0, y: (LAUNCHBUTTON_DIMENSIONS.y / 2)-(SUBMARINE_DIMENSIONS.y/2), z: -PLAYGROUND_SIZE.z - 0.5}),
+            rotation: this.lib.getAbsoluteRotation({x: 0, y: 0, z: 0}),
+            parentID: this.entityID,
+            userData: "{ \"grabbableKey\": { \"grabbable\": false }, \"teamId\": 1 }",
+            shapeType: "simple-compound",
+            script: LAUNCHGAMEBUTTON_SCRIPT_PATH,
+            dimensions: LAUNCHBUTTON_DIMENSIONS
+          });
+        print("gameLaunchButtonID created: " + gameLaunchButtonID);
     };
 
     NB_Server.prototype.buildPlayground = function(properties) 
     {
         //Number of lines to compute for one side
-        var lineStroke = 0.1;
-        var horizontalLineDimension = { x: PLAYGROUND_SIZE.x + lineStroke, y: lineStroke, z: lineStroke };
-        var verticalLineDimension = { x: lineStroke, y: lineStroke, z: PLAYGROUND_SIZE.z };
+        var horizontalLineDimension = { x: PLAYGROUND_SIZE.x + LINE_STROKE, y: LINE_STROKE, z: LINE_STROKE };
+        var verticalLineDimension = { x: LINE_STROKE, y: LINE_STROKE, z: PLAYGROUND_SIZE.z };
         var xIncrement = PLAYGROUND_SIZE.x / (PLAYGROUND_DIVISIONS.x - 1);
         var zIncrement = PLAYGROUND_SIZE.z / (PLAYGROUND_DIVISIONS.y - 1);
-        var yOffset = (lineStroke/2) - (SUBMARINE_DIMENSIONS.y/2);
-        var zOffset = (lineStroke/2);
+        var yOffset = (LINE_STROKE/2) - (SUBMARINE_DIMENSIONS.y/2);
+        var zOffset = (LINE_STROKE/2);
         var verticalLinesZ = zOffset + (verticalLineDimension.z / 2);
         var horizontallLinesX = (verticalLineDimension.x / 2);
 
@@ -175,29 +188,15 @@
         {
             var computedDistance = (-PLAYGROUND_SIZE.x / 2) + i*xIncrement;
             
-            playgroundLineIDs.push(Entities.addEntity({
-                type: "Shape",
-                shape: "Quad",
-                position: Vec3.sum(properties.position, {x: computedDistance, y: yOffset, z: verticalLinesZ}),
-                rotation: properties.rotation,
-                parentID: this.entityID,
-                userData: "{ \"grabbableKey\": { \"grabbable\": false }}",
-                collisionless: true,
-                canCastShadow: false,
-                dimensions: verticalLineDimension
-            }));
+            //Red Line
+            this.buildLine({x: computedDistance, y: yOffset, z: verticalLinesZ},
+                            properties.rotation,
+                            verticalLineDimension);
 
-            playgroundLineIDs.push(Entities.addEntity({
-                type: "Shape",
-                shape: "Quad",
-                position: Vec3.sum(properties.position, {x: computedDistance, y: yOffset, z: -verticalLinesZ}),
-                rotation: properties.rotation,
-                parentID: this.entityID,
-                userData: "{ \"grabbableKey\": { \"grabbable\": false }}",
-                collisionless: true,
-                canCastShadow: false,
-                dimensions: verticalLineDimension
-            }));
+            // Yellow Line
+            this.buildLine({x: computedDistance, y: yOffset, z: -verticalLinesZ},
+                            properties.rotation,
+                            verticalLineDimension);
         }
 
         //Creates horizontal lines
@@ -205,31 +204,33 @@
         {
             var computedDistance = zOffset + i*zIncrement;
 
-            playgroundLineIDs.push(Entities.addEntity({
-                type: "Shape",
-                shape: "Quad",
-                position: Vec3.sum(properties.position, {x: horizontallLinesX, y: yOffset, z: computedDistance}),
-                rotation: properties.rotation,
-                parentID: this.entityID,
-                userData: "{ \"grabbableKey\": { \"grabbable\": false }}",
-                collisionless: true,
-                canCastShadow: false,
-                dimensions: horizontalLineDimension
-            }));
+            //Red Line
+            this.buildLine({x: horizontallLinesX, y: yOffset, z: computedDistance},
+                            properties.rotation,
+                            horizontalLineDimension);
 
-            playgroundLineIDs.push(Entities.addEntity({
-                type: "Shape",
-                shape: "Quad",
-                position: Vec3.sum(properties.position, {x: horizontallLinesX, y: yOffset, z: -computedDistance}),
-                rotation: properties.rotation,
-                parentID: this.entityID,
-                userData: "{ \"grabbableKey\": { \"grabbable\": false }}",
-                collisionless: true,
-                canCastShadow: false,
-                dimensions: horizontalLineDimension
-            }));
+            // Yellow Line
+            this.buildLine({x: horizontallLinesX, y: yOffset, z: -computedDistance},
+                            properties.rotation,
+                            horizontalLineDimension);
         }
-    }
+    };
+
+    NB_Server.prototype.buildLine = function(position, rotation, dimension)
+    {
+        playgroundLineIDs.push(Entities.addEntity({
+            type: "Shape",
+            shape: "Quad",
+            position: this.lib.getAbsolutePosition(position),
+            rotation: rotation,
+            parentID: this.entityID,
+            userData: "{ \"grabbableKey\": { \"grabbable\": false }}",
+            collisionless: true,
+            canCastShadow: false,
+            dimensions: dimension
+        }));
+    };
+
 
     //#endregion
 
@@ -267,6 +268,18 @@
         {
             this.announceToPlayer(playerID, "The registration phase is over...");
         }
+    };
+
+
+    NB_Server.prototype.launchGameButtonPressed = function(entityID, eventInfo)
+    {
+        //Register player to the team
+        var teamID = eventInfo[0];
+        var playerID = eventInfo[1];
+        var data = eventInfo[2]; //Optional
+
+        //TODO
+        this.announceToPlayer(playerID, "I will work one day!");
     };
     //#endregion
 
