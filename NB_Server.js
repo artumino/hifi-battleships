@@ -8,6 +8,7 @@
 //  Generates the playground and handles the game
 //
 //
+import { helloWorld } from 'NB_Lib';
 
 (function(){
     //Files
@@ -82,6 +83,7 @@
       preload: function(entityID) {
         this.entityID = entityID;
         this.buildAll();
+        helloWorld();
       },
       unload: function(entityID) {
           //Unload....
@@ -191,7 +193,7 @@
     {
         //Number of lines to compute for one side
         var lineStroke = 0.1;
-        var horizontalLineDimension = { x: PLAYGROUND_SIZE.x, y: lineStroke, z: lineStroke };
+        var horizontalLineDimension = { x: PLAYGROUND_SIZE.x + lineStroke, y: lineStroke, z: lineStroke };
         var verticalLineDimension = { x: lineStroke, y: lineStroke, z: PLAYGROUND_SIZE.z };
         var xIncrement = PLAYGROUND_SIZE.x / (PLAYGROUND_DIVISIONS.x - 1);
         var zIncrement = PLAYGROUND_SIZE.z / (PLAYGROUND_DIVISIONS.y - 1);
