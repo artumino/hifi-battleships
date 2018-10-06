@@ -8,7 +8,6 @@
 //  Generates the playground and handles the game
 //
 //
-import { helloWorld } from 'NB_Lib';
 
 (function(){
     //Files
@@ -82,8 +81,11 @@ import { helloWorld } from 'NB_Lib';
     NB_Server.prototype = {
       preload: function(entityID) {
         this.entityID = entityID;
-        this.buildAll();
-        helloWorld();
+        Scripts.include("NB_Lib.js", function() {
+            print("Library loaded!");
+            this.buildAll();
+            helloWorld();
+        });
       },
       unload: function(entityID) {
           //Unload....

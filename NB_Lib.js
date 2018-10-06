@@ -1,4 +1,4 @@
-export function helloWorld()
+function helloWorld()
 {
     print("Hello World!");
 }
