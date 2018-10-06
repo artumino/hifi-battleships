@@ -81,7 +81,7 @@
     NB_Server.prototype = {
       preload: function(entityID) {
         this.entityID = entityID;
-        Scripts.include("NB_Lib.js", function() {
+        Script.include("NB_Lib.js", function() {
             print("Library loaded!");
             this.buildAll();
             helloWorld();
