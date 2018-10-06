@@ -58,8 +58,8 @@ NB_Lib.prototype.getAbsoluteRotation= function(relativeRotationEuler)
 NB_Lib.prototype.getCellCenter = function(x,y,team)
 {
     var multiplier = (team == Team.Red) ? -1 : 1;
-    var xIncrement = PLAYGROUND_SIZE.x / (PLAYGROUND_DIVISIONS.x - 1);
-    var zIncrement = PLAYGROUND_SIZE.z / (PLAYGROUND_DIVISIONS.y - 1);
+    var xIncrement = PLAYGROUND_SIZE.x / PLAYGROUND_DIVISIONS.x;
+    var zIncrement = PLAYGROUND_SIZE.z / PLAYGROUND_DIVISIONS.y;
     var zOffset = (LINE_STROKE/2);
 
     //Calculate center of cell
