@@ -225,7 +225,7 @@
             redTeamBoardID: redTeamBoardID,
             yellowTeamBoardID: yellowTeamBoardID
         }
-        Messages.sendData(TEAM_CHANNEL, payload);
+        Messages.sendMessage(TEAM_CHANNEL, JSON.stringify(payload));
     }
 
     NB_Server.prototype.announceToPlayer = function(playerID, message)

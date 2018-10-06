@@ -23,16 +23,17 @@
     preload: function(entityID) {
       this.entityID = entityID;
       Messages.subscribe(TEAM_CHANNEL);
-      Messages.dataReceived.connect(this.parseTeamComp);
+      Messages.messageReceived.connect(this.parseTeamComp);
     },
     announceMessage: function(entityID, message) {
       Window.displayAnnouncement(message);
     },
-    parseTeamComp: function(channel, data, senderID, localOnly) 
+    parseTeamComp: function(channel, message, senderID, localOnly) 
     {
       print("Got message from " + senderID);
       if(senderID == this.entityID)
       {
+        var data = JSON.parse(message);
         var redTeamComp = "Red Team:\n";
         var yellowTeamComp = "Yellow Team:\n";
         var redTeamBoardID = data.redTeamBoardID;
@@ -54,7 +55,7 @@
     },
     unload: function(entityID) {
         //Unload....
-        Messages.dataReceived.disconnect(this.parseTeamComp);
+        Messages.messageReceived.disconnect(this.parseTeamComp);
         Messages.unsubscribe(TEAM_CHANNEL);
     }
   };
