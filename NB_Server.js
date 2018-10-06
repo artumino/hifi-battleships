@@ -216,10 +216,10 @@
             redPlayers: gameState.redPlayers,
             yellowPlayers: gameState.yellowPlayers,
             redTeamBoardID: redTeamBoardID,
-            yellowTeamBoardID: yellowTeamBoardID
+            yellowTeamBoardID: yellowTeamBoardID,
+            entityID: this.entityID
         }
         var messageJson = JSON.stringify(payload);
-        print("Update team comp with data " + messageJson);
         Messages.sendMessage(TEAM_CHANNEL, messageJson);
     }
 

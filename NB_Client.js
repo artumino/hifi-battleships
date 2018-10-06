@@ -31,27 +31,31 @@
     },
     parseTeamComp: function(channel, message, senderID, localOnly) 
     {
-      Window.displayAnnouncement("Got message from " + senderID);
-      if(senderID == this.entityID)
+      if(channel == TEAM_CHANNEL)
       {
+        Window.displayAnnouncement("Got message from " + senderID);
         var data = JSON.parse(message);
         var redTeamComp = "Red Team:\n";
         var yellowTeamComp = "Yellow Team:\n";
         var redTeamBoardID = data.redTeamBoardID;
         var yellowTeamBoardID = data.yellowTeamBoardID;
+        var senderEntityID = data.entityID;
 
-        for (i = 0; i < data.yellowPlayers.length; i++)
-            yellowTeamComp += AvatarList.getAvatar(data.yellowPlayers[i]).displayName + "\n";
+        if(senderEntityID == this.entityID)
+        {
+          for (i = 0; i < data.yellowPlayers.length; i++)
+          yellowTeamComp += AvatarList.getAvatar(data.yellowPlayers[i]).displayName + "\n";
 
-        for (i = 0; i < data.redPlayers.length; i++)
-            redTeamComp += AvatarList.getAvatar(data.redPlayers[i]).displayName + "\n";
+          for (i = 0; i < data.redPlayers.length; i++)
+              redTeamComp += AvatarList.getAvatar(data.redPlayers[i]).displayName + "\n";
 
-        Entities.editEntity(redTeamBoardID, {
-            text: redTeamComp
-        });
-        Entities.editEntity(yellowTeamBoardID, {
-            text: yellowTeamComp
-        });
+          Entities.editEntity(redTeamBoardID, {
+              text: redTeamComp
+          });
+          Entities.editEntity(yellowTeamBoardID, {
+              text: yellowTeamComp
+          });
+        }
       }
     },
     unload: function(entityID) {
