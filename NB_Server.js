@@ -177,8 +177,8 @@
     NB_Server.prototype.buildPlayground = function(properties) 
     {
         //Number of lines to compute for one side
-        var horizontalLineDimension = { x: PLAYGROUND_SIZE.x + LINE_STROKE, y: LINE_STROKE, z: LINE_STROKE };
-        var verticalLineDimension = { x: LINE_STROKE, y: LINE_STROKE, z: PLAYGROUND_SIZE.z + LINE_STROKE };
+        var horizontalLineDimension = { x: PLAYGROUND_SIZE.x, y: LINE_STROKE, z: LINE_STROKE };
+        var verticalLineDimension = { x: LINE_STROKE, y: LINE_STROKE, z: PLAYGROUND_SIZE.z };
         var xIncrement = PLAYGROUND_SIZE.x / (PLAYGROUND_DIVISIONS.x - 1);
         var zIncrement = PLAYGROUND_SIZE.z / (PLAYGROUND_DIVISIONS.y - 1);
         var yOffset = (LINE_STROKE/2) - (SUBMARINE_DIMENSIONS.y/2);
@@ -294,14 +294,9 @@
                 gameState.stage = GameStage.PreGame;
 
                 //start timer
-                var index = 0;
-                var timerToStartInterval = setInterval(timerToStart, 3000, index, timerToStartInterval); //3000 == 3sec
-                if(index == 3){
-                    clearInterval(timerToStartInterval);
-                    //all ready to go! broadcast message
-                    this.broadcast(playerID, "GAME READY!");                    
-                    //this.startGame(); Function TODO                                        
-                }
+                var that = this;
+                Script.setTimeout(function() {  that.broadcast("GAME READY!", Team.Both);  }, 3000); //3000 == 3sec
+                this.broadcast("Starting game in 3 seconds...", Team.Both);
             }
             else{
                 //broadcast

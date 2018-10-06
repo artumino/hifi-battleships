@@ -73,12 +73,3 @@ function helloWorld()
 {
     print("Hello World!");
 }
-
-//Function that will remind people of how many seconds remain to the start of the game
-//send message only on the 3-2-and 1 indexes.
-function timerToStart(index)
-{
-    print("indicee" +index);
-    index++;
-
-}
