@@ -66,7 +66,7 @@ NB_Lib.prototype.getCellCenter = function(x,y,team)
     var computedXDistance = ((-PLAYGROUND_SIZE.x) + x*xIncrement + (x+1)*xIncrement)/2;
     var computedZDistance = (zOffset*2 + y*zIncrement + (y+1)*zIncrement) / 2;
 
-    return this.getAbsoluteRotatedPosition({x: computedXDistance, y: -SUBMARINE_DIMENSIONS.y/2, z: multiplier * computedZDistance})
+    return this.getAbsolutePosition({x: computedXDistance, y: -SUBMARINE_DIMENSIONS.y/2, z: multiplier * computedZDistance})
 }
 
 function helloWorld()
