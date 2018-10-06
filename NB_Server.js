@@ -21,6 +21,8 @@
     const SUBMARINE_DIMENSIONS = {x: 7.7175, y: 3.2999, z: 0.2196};
     const LAUNCHBUTTON_DIMENSIONS = {x: 0.3595, y: 1.5122, z: 0.3595};
     const TEAMBOARDS_DIMENSIONS = {x: 1.50, y: 1.7525, z: 0.01};
+    const PLAYGROUND_SIZE = {x: 10, z: 10};
+    const PLAYGROUND_DIVISIONS = {x: 15, y: 15};
 
     //Strings
     const GAME_DESCRIPTION = "To Join a Team press the button at the respective submarine.\n\nTo start a game press start button."
@@ -29,12 +31,13 @@
     //Enums
     const GameStage = {
         Register: 0,
-        YellowVoting: 1,
-        YellowVoted: 2,
-        RedVoting: 3,
-        RedVoted: 4,
-        RedWin: 5,
-        YellowWin: 6,
+        PreGame: 1,
+        YellowVoting: 2,
+        YellowVoted: 3,
+        RedVoting: 4,
+        RedVoted: 5,
+        RedWin: 6,
+        YellowWin: 7
     };
 
     const Team = {
@@ -53,6 +56,9 @@
     var redSubmarineID;
     var redLaunchButtonID;
 
+    //Playground Graphics
+    var playgroundLineIDs = [];
+
     //Misc
     var gameDescriptioID;
 
@@ -62,7 +68,8 @@
         stage: GameStage.Register,
         yellowPlayers: [],
         redPlayers: [],
-        playerNames: {}
+        playerNames: {},
+        playerSelections: {}    //Selection for Bomb
     };
 
 
@@ -81,6 +88,8 @@
       }
     };
 
+    //#region Build Entity
+
     NB_Server.prototype.buildAll = function() 
     {
         //getting properties of parent
@@ -90,7 +99,7 @@
         yellowSubmarineID = Entities.addEntity({
             type: "Model",
             modelURL: YELLOW_SUBMARINE_FBX_PATH,
-            position: Vec3.sum(properties.position, {x: 0, y: 0, z: 10}),
+            position: Vec3.sum(properties.position, {x: 0, y: 0, z: PLAYGROUND_SIZE.z + 0.25}),
             rotation: properties.rotation,
             parentID: this.entityID,
             userData: "{ \"grabbableKey\": { \"grabbable\": false } }",
@@ -102,7 +111,7 @@
         yellowLaunchButtonID = Entities.addEntity({
             type: "Model",
             modelURL: LAUNCHBUTTON_FBX_PATH,
-            position: Vec3.sum(properties.position, {x: 0, y: 0, z: 10.25}),
+            position: Vec3.sum(properties.position, {x: 0, y: (LAUNCHBUTTON_DIMENSIONS.y / 2)-(SUBMARINE_DIMENSIONS.y/2), z: PLAYGROUND_SIZE.z + 0.5}),
             rotation: properties.rotation,
             parentID: this.entityID,
             userData: "{ \"grabbableKey\": { \"grabbable\": false }, \"teamId\": 0 }",
@@ -115,7 +124,7 @@
         redSubmarineID = Entities.addEntity({
             type: "Model",
             modelURL: RED_SUBMARINE_FBX_PATH,
-            position: Vec3.sum(properties.position, {x: 0, y: 0, z: -10}),
+            position: Vec3.sum(properties.position, {x: 0, y: 0, z: -PLAYGROUND_SIZE.z - 0.25}),
             rotation: Quat.multiply(properties.rotation, Quat.fromPitchYawRollDegrees(0,180,0)),//al contrario
             parentID: this.entityID,
             userData: "{ \"grabbableKey\": { \"grabbable\": false } }",
@@ -127,7 +136,7 @@
         redLaunchButtonID = Entities.addEntity({
             type: "Model",
             modelURL: LAUNCHBUTTON_FBX_PATH,
-            position: Vec3.sum(properties.position, {x: 0, y: 0, z: -10.25}),
+            position: Vec3.sum(properties.position, {x: 0, y: (LAUNCHBUTTON_DIMENSIONS.y / 2)-(SUBMARINE_DIMENSIONS.y/2), z: -PLAYGROUND_SIZE.z - 0.5}),
             rotation: Quat.multiply(properties.rotation, Quat.fromPitchYawRollDegrees(0,180,0)),
             parentID: this.entityID,
             userData: "{ \"grabbableKey\": { \"grabbable\": false }, \"teamId\": 1 }",
@@ -142,7 +151,7 @@
         
         yellowTeamBoardID = Entities.addEntity({
             type: "Text",
-            position: Vec3.sum(properties.position, {x: -teamBoardsXOffset, y: 0, z: 10}),
+            position: Vec3.sum(properties.position, {x: -teamBoardsXOffset, y: 0, z: PLAYGROUND_SIZE.z + 0.25}),
             rotation: Quat.multiply(properties.rotation, Quat.fromPitchYawRollDegrees(0,180,0)),//al contrario
             parentID: this.entityID,
             text: "Yellow Team:",
@@ -153,7 +162,7 @@
         
         redTeamBoardID = Entities.addEntity({
             type: "Text",
-            position: Vec3.sum(properties.position, {x: -teamBoardsXOffset, y: 0, z: -10}),
+            position: Vec3.sum(properties.position, {x: -teamBoardsXOffset, y: 0, z: -PLAYGROUND_SIZE.z - 0.25}),
             rotation: properties.rotation,
             parentID: this.entityID,
             text: "Red Team:",
@@ -161,6 +170,9 @@
             dimensions: TEAMBOARDS_DIMENSIONS
           });
         print("redTeamBoardID created: " + redTeamBoardID);
+
+        //Build Playground
+        this.buildPlayground(properties);
         
         //create more stuff TODO
         gameDescriptioID = Entities.addEntity({
@@ -175,6 +187,74 @@
         print("gameDescriptioID created: " + gameDescriptioID);
     };
 
+    NB_Server.prototype.buildPlayground = function(properties) 
+    {
+        //Number of lines to compute for one side
+        var lineStroke = 0.1;
+        var horizontalLineDimension = { x: PLAYGROUND_SIZE.x, y: lineHeight, z: lineHeight };
+        var verticalLineDimension = { x: lineHeight, y: lineHeight, z: PLAYGROUND_SIZE.z };
+        var xIncrement = PLAYGROUND_SIZE.x / (PLAYGROUND_DIVISIONS.x - 1);
+        var zIncrement = PLAYGROUND_SIZE.z / (PLAYGROUND_DIVISIONS.y - 1);
+        var yOffset = (lineStroke/2) - (SUBMARINE_DIMENSIONS.y/2);
+        var zOffset = (lineStroke/2);
+        var verticalLinesZ = zOffset + (verticalLineDimension.z / 2);
+        var horizontallLinesX = (verticalLineDimension.x / 2);
+
+        // Creates vertical lines
+        var k = 0;
+        for(var i = 0; i < PLAYGROUND_DIVISIONS.x; i++)
+        {
+            var computedDistance = (-PLAYGROUND_SIZE.x / 2) + i*xIncrement;
+            playgroundLineIDs[k] = Entities.addEntity({
+                type: "Box",
+                position: {x: computedDistance, y: yOffset, z: verticalLinesZ},
+                rotation: properties.rotation,
+                parentID: this.entityID,
+                userData: "{ \"grabbableKey\": { \"grabbable\": false }}",
+                collisionless: true,
+                dimensions: verticalLineDimension
+            });
+            playgroundLineIDs[k+1] = Entities.addEntity({
+                type: "Box",
+                position: {x: computedDistance, y: yOffset, z: -verticalLinesZ},
+                rotation: properties.rotation,
+                parentID: this.entityID,
+                userData: "{ \"grabbableKey\": { \"grabbable\": false }}",
+                collisionless: true,
+                dimensions: verticalLineDimension
+            });
+            k = i+2;
+        }
+
+        //Creates horizontal lines
+        for(var i = 0; i < PLAYGROUND_DIVISIONS.y; i++)
+        {
+            var computedDistance = (-PLAYGROUND_SIZE.z / 2) + i*zIncrement;
+            playgroundLineIDs[k] = Entities.addEntity({
+                type: "Box",
+                position: {x: horizontallLinesX, y: yOffset, z: computedDistance},
+                rotation: properties.rotation,
+                parentID: this.entityID,
+                userData: "{ \"grabbableKey\": { \"grabbable\": false }}",
+                collisionless: true,
+                dimensions: horizontalLineDimension
+            });
+            playgroundLineIDs[k+1] = Entities.addEntity({
+                type: "Box",
+                position: {x: horizontallLinesX, y: yOffset, z: -computedDistance},
+                rotation: properties.rotation,
+                parentID: this.entityID,
+                userData: "{ \"grabbableKey\": { \"grabbable\": false }}",
+                collisionless: true,
+                dimensions: horizontalLineDimension
+            });
+            k = i+2;
+        }
+    }
+
+    //#endregion
+
+    //#region Event Handling
     NB_Server.prototype.launchButtonPressed = function(entityID, eventInfo)
     {
         //Register player to the team
@@ -209,8 +289,9 @@
             this.announceToPlayer(playerID, "The registration phase is over...");
         }
     };
+    //#endregion
 
-    //Utilities
+    //#region Utilities
     NB_Server.prototype.updateTeams = function()
     {
         var redTeamComp = "Red Team:\n";
@@ -234,6 +315,17 @@
         });
     }
 
+    NB_Server.prototype.createPlayground = function()
+    {
+        var playground = new Array(PLAYGROUND_DIVISIONS.x);
+
+        for (var i = 0; i < playground.length; i++) {
+            playground[i] = new Array(PLAYGROUND_DIVISIONS.y);
+        }
+
+        return playground;
+    }
+
     NB_Server.prototype.announceToPlayer = function(playerID, message)
     {
         Entities.callEntityClientMethod(playerID, this.entityID, "announceMessage", [message]);
@@ -253,5 +345,7 @@
         for (i = 0; i < toPlayers.length; i++)
             this.announceToPlayer(toPlayers[i], message);
     }
+    //#endregion
+
     return new NB_Server();
   });
