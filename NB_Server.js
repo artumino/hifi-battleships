@@ -179,15 +179,15 @@
         //Number of lines to compute for one side
         var horizontalLineDimension = { x: PLAYGROUND_SIZE.x, y: LINE_STROKE, z: LINE_STROKE };
         var verticalLineDimension = { x: LINE_STROKE, y: LINE_STROKE, z: PLAYGROUND_SIZE.z };
-        var xIncrement = PLAYGROUND_SIZE.x / (PLAYGROUND_DIVISIONS.x - 1);
-        var zIncrement = PLAYGROUND_SIZE.z / (PLAYGROUND_DIVISIONS.y - 1);
+        var xIncrement = PLAYGROUND_SIZE.x / (PLAYGROUND_DIVISIONS.x - 2);
+        var zIncrement = PLAYGROUND_SIZE.z / (PLAYGROUND_DIVISIONS.y - 2);
         var yOffset = (LINE_STROKE/2) - (SUBMARINE_DIMENSIONS.y/2);
         var zOffset = (LINE_STROKE/2);
-        var verticalLinesZ = zOffset + ((verticalLineDimension.z + LINE_STROKE) / 2);
-        var horizontalLinesX = ((verticalLineDimension.x + LINE_STROKE) / 2);
+        var verticalLinesZ = zOffset + (verticalLineDimension.z / 2);
+        var horizontalLinesX = 0;
 
         // Creates vertical lines
-        for(var i = 0; i < PLAYGROUND_DIVISIONS.x; i++)
+        for(var i = 0; i < PLAYGROUND_DIVISIONS.x+1; i++)
         {
             var computedDistance = (-PLAYGROUND_SIZE.x / 2) + i*xIncrement;
             
@@ -203,7 +203,7 @@
         }
 
         //Creates horizontal lines
-        for(var i = 0; i < PLAYGROUND_DIVISIONS.y; i++)
+        for(var i = 0; i < PLAYGROUND_DIVISIONS.y+1; i++)
         {
             var computedDistance = zOffset + i*zIncrement;
 
