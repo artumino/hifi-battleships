@@ -206,22 +206,24 @@
             var computedDistance = (-PLAYGROUND_SIZE.x / 2) + i*xIncrement;
             
             playgroundLineIDs.push(Entities.addEntity({
-                type: "Box",
+                type: "Quad",
                 position: Vec3.sum(properties.position, {x: computedDistance, y: yOffset, z: verticalLinesZ}),
                 rotation: properties.rotation,
                 parentID: this.entityID,
                 userData: "{ \"grabbableKey\": { \"grabbable\": false }}",
                 collisionless: true,
+                canCastShadow: false,
                 dimensions: verticalLineDimension
             }));
 
             playgroundLineIDs.push(Entities.addEntity({
-                type: "Box",
+                type: "Quad",
                 position: Vec3.sum(properties.position, {x: computedDistance, y: yOffset, z: -verticalLinesZ}),
                 rotation: properties.rotation,
                 parentID: this.entityID,
                 userData: "{ \"grabbableKey\": { \"grabbable\": false }}",
                 collisionless: true,
+                canCastShadow: false,
                 dimensions: verticalLineDimension
             }));
         }
@@ -232,22 +234,24 @@
             var computedDistance = zOffset + i*zIncrement;
 
             playgroundLineIDs.push(Entities.addEntity({
-                type: "Box",
+                type: "Quad",
                 position: Vec3.sum(properties.position, {x: horizontallLinesX, y: yOffset, z: computedDistance}),
                 rotation: properties.rotation,
                 parentID: this.entityID,
                 userData: "{ \"grabbableKey\": { \"grabbable\": false }}",
                 collisionless: true,
+                canCastShadow: false,
                 dimensions: horizontalLineDimension
             }));
 
             playgroundLineIDs.push(Entities.addEntity({
-                type: "Box",
+                type: "Quad",
                 position: Vec3.sum(properties.position, {x: horizontallLinesX, y: yOffset, z: -computedDistance}),
                 rotation: properties.rotation,
                 parentID: this.entityID,
                 userData: "{ \"grabbableKey\": { \"grabbable\": false }}",
                 collisionless: true,
+                canCastShadow: false,
                 dimensions: horizontalLineDimension
             }));
         }
