@@ -177,14 +177,14 @@
     NB_Server.prototype.buildPlayground = function(properties) 
     {
         //Number of lines to compute for one side
-        var horizontalLineDimension = { x: PLAYGROUND_SIZE.x + LINE_STROKE*2, y: LINE_STROKE, z: LINE_STROKE };
-        var verticalLineDimension = { x: LINE_STROKE, y: LINE_STROKE, z: PLAYGROUND_SIZE.z };
+        var horizontalLineDimension = { x: PLAYGROUND_SIZE.x + LINE_STROKE, y: LINE_STROKE, z: LINE_STROKE };
+        var verticalLineDimension = { x: LINE_STROKE, y: LINE_STROKE, z: PLAYGROUND_SIZE.z + LINE_STROKE };
         var xIncrement = PLAYGROUND_SIZE.x / (PLAYGROUND_DIVISIONS.x - 1);
         var zIncrement = PLAYGROUND_SIZE.z / (PLAYGROUND_DIVISIONS.y - 1);
         var yOffset = (LINE_STROKE/2) - (SUBMARINE_DIMENSIONS.y/2);
         var zOffset = (LINE_STROKE/2);
-        var verticalLinesZ = zOffset + (verticalLineDimension.z / 2);
-        var horizontallLinesX = ((verticalLineDimension.x + LINE_STROKE*2) / 2);
+        var verticalLinesZ = zOffset + ((verticalLineDimension.z + LINE_STROKE) / 2);
+        var horizontalLinesX = ((verticalLineDimension.x + LINE_STROKE) / 2);
 
         // Creates vertical lines
         for(var i = 0; i < PLAYGROUND_DIVISIONS.x; i++)
@@ -208,12 +208,12 @@
             var computedDistance = zOffset + i*zIncrement;
 
             //Red Line
-            this.buildLine({x: horizontallLinesX, y: yOffset, z: computedDistance},
+            this.buildLine({x: horizontalLinesX, y: yOffset, z: computedDistance},
                             properties.rotation,
                             horizontalLineDimension);
 
             // Yellow Line
-            this.buildLine({x: horizontallLinesX, y: yOffset, z: -computedDistance},
+            this.buildLine({x: horizontalLinesX, y: yOffset, z: -computedDistance},
                             properties.rotation,
                             horizontalLineDimension);
         }
@@ -291,7 +291,7 @@
             if( RedTeam.length != 0 && YellowTeam.length != 0){
                 
                 //change gameState to stop the registration
-                gameStage.stage = GameStage.PreGame;
+                gameState.stage = GameStage.PreGame;
 
                 //start timer
                 var index = 0;
