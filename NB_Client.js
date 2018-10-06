@@ -38,18 +38,21 @@
   NB_Client.prototype.startGame = function(entityID, team)
   {
     //Genera i cubi per la scelta in locale....
+    print("Starting client game...");
     this.buildSelectionQuad(0,0,team);
   };
 
   NB_Client.prototype.buildSelectionQuad = function(x, y, team)
   {
+    var position = this.lib.getCellCenter(x,y,team);
+    print("Spawning at cell 0,0 with location: x=" + position.x + " y=" +position.y + " z=" + position.z);
     var rotation = Entities.getEntityProperties(this.entityID, ["rotation"]).rotation;
     var xIncrement = PLAYGROUND_SIZE.x / PLAYGROUND_DIVISIONS.x;
     var zIncrement = PLAYGROUND_SIZE.z / PLAYGROUND_DIVISIONS.y;
     selectionQuadsIDs.push(Entities.addEntity({
       type: "Shape",
       shape: "Quad",
-      position: this.lib.getCellCenter(x,y,team),
+      position: position,
       rotation: rotation,
       parentID: this.entityID,
       userData: "{ \"grabbableKey\": { \"grabbable\": false }}",
