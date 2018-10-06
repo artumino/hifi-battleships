@@ -48,8 +48,7 @@
         var that = this;
         Script.include("NB_Lib.js", function() {
             print("Library loaded!");
-            that.lib = new NB_Lib();
-            that.lib = that.entityID;
+            that.lib = new NB_Lib(that.entityID);
 
             that.buildAll();
         });
