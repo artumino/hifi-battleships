@@ -22,6 +22,7 @@
   NB_Client.prototype = {
     preload: function(entityID) {
       this.entityID = entityID;
+      print("Registering for messages on channel " + TEAM_CHANNEL);
       Messages.subscribe(TEAM_CHANNEL);
       Messages.messageReceived.connect(this.parseTeamComp);
     },

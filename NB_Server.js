@@ -225,7 +225,9 @@
             redTeamBoardID: redTeamBoardID,
             yellowTeamBoardID: yellowTeamBoardID
         }
-        Messages.sendMessage(TEAM_CHANNEL, JSON.stringify(payload));
+        var messageJson = JSON.stringify(payload);
+        print("Update team comp with data " + messageJson);
+        Messages.sendMessage(TEAM_CHANNEL, messageJson);
     }
 
     NB_Server.prototype.announceToPlayer = function(playerID, message)
