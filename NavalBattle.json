@@ -29,7 +29,7 @@
                 "y": -1.52587890625e-05,
                 "z": -1.52587890625e-05
             },
-            "serverScripts": "https://raw.githubusercontent.com/artumino/hifi-battleships/8e4440960cc304def756b3dd01896bc6afc44519/NB_Server.js",
+            "serverScripts": "https://raw.githubusercontent.com/artumino/hifi-battleships/7ee3edf175aeafb420287c102df7e9464640d5ba/NB_Server.js",
             "shapeType": "box",
             "type": "Zone",
             "userData": "{\"grabbableKey\":{\"grabbable\":false}}"

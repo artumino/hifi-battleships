@@ -220,16 +220,10 @@
         var yellowTeamComp = "Yellow Team:\n";
 
         for (i = 0; i < gameState.yellowPlayers.length; i++)
-        {
-            var avatar = AvatarManager.getAvatar(gameState.yellowPlayers[i]).sessionDisplayName;
-            yellowTeamComp += avatar + "\n";
-        }
+            yellowTeamComp += gameState.redPlayers[i] + "\n";
 
         for (i = 0; i < gameState.redPlayers.length; i++)
-        {
-            var avatar = AvatarManager.getAvatar(gameState.redPlayers[i]).sessionDisplayName;
-            redTeamComp += avatar + "\n";
-        }
+            redTeamComp += gameState.redPlayers[i] + "\n";
 
         Entities.editEntity(redTeamBoardID, {
             text: redTeamComp
