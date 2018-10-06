@@ -48,6 +48,9 @@
         var that = this;
         Script.include("NB_Lib.js", function() {
             print("Library loaded!");
+
+            getAbsolutePosition = getAbsolutePosition.bind(this);
+
             that.buildAll();
         });
       },
@@ -67,7 +70,7 @@
         yellowSubmarineID = Entities.addEntity({
             type: "Model",
             modelURL: YELLOW_SUBMARINE_FBX_PATH,
-            position: getAbsolutePosition({x: 0, y: 0, z: PLAYGROUND_SIZE.z + 0.25}).bind(this),
+            position: getAbsolutePosition({x: 0, y: 0, z: PLAYGROUND_SIZE.z + 0.25}),
             rotation: properties.rotation,
             parentID: this.entityID,
             userData: "{ \"grabbableKey\": { \"grabbable\": false } }",
