@@ -1,5 +1,5 @@
 //
-//  BM_TeamTable.js
+//  NB_TeamTable.js
 //  /scripts
 //
 //  Created by Corrado Co. on 05/10/18.
@@ -10,22 +10,18 @@
 //
 
 (function(){
+    const TEAM_CHANNEL = "com.corrado.TeamCompChannel";
 
     function NB_TeamTable()
     {
-      this.remotelyCallable = ["updateTeamComp"];
     };
   
   
     NB_TeamTable.prototype = {
       preload: function(entityID) {
         this.entityID = entityID;
-        Entities.editEntity(entityID, {
-            text: "Hello \n World"
-        });
-      },
-      updateTeamComp: function(entityID, teamInfos) {
-        
+        Messages.subscribe(TEAM_CHANNEL);
+        Messages.dataReceived.connect(this.parseTeamComp);
       },
       unload: function(entityID) {
           //Unload....

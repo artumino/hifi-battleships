@@ -25,6 +25,8 @@
 
     //Strings
     const GAME_DESCRIPTION = "To Join a Team press the button at the respective submarine.\n\nTo start a game press start button."
+    const TEAM_CHANNEL = "com.corrado.TeamCompChannel";
+
 
     //Enums
     const GameStage = {
@@ -110,7 +112,7 @@
             position: Vec3.sum(properties.position, {x: 0, y: 0, z: 10.25}),
             rotation: properties.rotation,
             parentID: this.entityID,
-            userData: "{ \"grabbableKey\": { \"grabbable\": false }, \"teamId\": 1 }",
+            userData: "{ \"grabbableKey\": { \"grabbable\": false }, \"teamId\": 0 }",
             shapeType: "simple-compound",
             script: LAUNCHBUTTON_SCRIPT_PATH,
             dimensions: LAUNCHBUTTON_DIMENSIONS
@@ -216,21 +218,14 @@
     //Utilities
     NB_Server.prototype.updateTeams = function()
     {
-        var redTeamComp = "Red Team:\n";
-        var yellowTeamComp = "Yellow Team:\n";
-
-        for (i = 0; i < gameState.yellowPlayers.length; i++)
-            yellowTeamComp += gameState.redPlayers[i] + "\n";
-
-        for (i = 0; i < gameState.redPlayers.length; i++)
-            redTeamComp += gameState.redPlayers[i] + "\n";
-
-        Entities.editEntity(redTeamBoardID, {
-            text: redTeamComp
-        });
-        Entities.editEntity(yellowTeamBoardID, {
-            text: yellowTeamComp
-        });
+        var payload = 
+        {
+            redPlayers = gameState.redPlayers,
+            yellowPlayers = gameState.yellowPlayers,
+            redTeamBoardID = redTeamBoardID,
+            yellowTeamBoardID = yellowTeamBoardID
+        }
+        Messages.sendMessage(TEAM_CHANNEL, payload);
     }
 
     NB_Server.prototype.announceToPlayer = function(playerID, message)
