@@ -300,11 +300,11 @@
                     that.broadcast("GAME READY!", Team.Both);  
                     //after game is ready create stuff
                     for(var i in RedTeam){
-                        print("Starting game for " + i);
+                        //print("Starting game for " + i);
                         that.startGame(RedTeam[i], Team.Red);
                     }
                     for(var j in YellowTeam){
-                        print("Starting game for " + j);
+                        //print("Starting game for " + j);
                         that.startGame(YellowTeam[j], Team.Yellow);
                     }          
                 }, 3000); //3000 == 3sec

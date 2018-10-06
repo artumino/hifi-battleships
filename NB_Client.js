@@ -52,7 +52,7 @@
 
     var currentScriptURL = Entities.getEntityProperties(this.entityID, ["script"]).script;
     var scriptURLBase = currentScriptURL.substring(0, currentScriptURL.lastIndexOf('/')) + "/NB_SelectionItem.js";
-    
+
     selectionQuadsIDs.push(Entities.addEntity({
       type: "Shape",
       shape: "Quad",
@@ -64,7 +64,7 @@
       canCastShadow: false,
       clientOnly: true,
       script: scriptURLBase,
-      dimensions: {x: xIncrement, z: zIncrement}
+      dimensions: {x: xIncrement, y: 0.0010, z: zIncrement}
     }));
   };
 
