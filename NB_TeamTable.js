@@ -10,23 +10,23 @@
 //
 
 (function(){
-    const TEAM_CHANNEL = "com.corrado.TeamCompChannel";
+  const TEAM_CHANNEL = "com.corrado.TeamCompChannel";
 
-    function NB_TeamTable()
-    {
-    };
-  
-  
-    NB_TeamTable.prototype = {
-      preload: function(entityID) {
-        this.entityID = entityID;
-        Messages.subscribe(TEAM_CHANNEL);
-        Messages.dataReceived.connect(this.parseTeamComp);
-      },
-      unload: function(entityID) {
-          //Unload....
-      }
-    };
-  
-    return new NB_TeamTable();
-  });
+  function NB_TeamTable()
+  {
+  };
+
+
+  NB_TeamTable.prototype = {
+    preload: function(entityID) {
+      this.entityID = entityID;
+      Messages.subscribe(TEAM_CHANNEL);
+      Messages.dataReceived.connect(this.parseTeamComp);
+    },
+    unload: function(entityID) {
+        //Unload....
+    }
+  };
+
+  return new NB_TeamTable();
+});

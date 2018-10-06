@@ -295,12 +295,22 @@
 
                 //start timer
                 var that = this;
-                Script.setTimeout(function() {  that.broadcast("GAME READY!", Team.Both);  }, 3000); //3000 == 3sec
+                Script.setTimeout(function() {  
+                    
+                    that.broadcast("GAME READY!", Team.Both);  
+                    //after game is ready create stuff
+                    for(var i in RedTeam){
+                        that.startGame(Team.Red);
+                    }
+                    for(var j in YellowTeam){
+                        that.startGame(Team.Yellow);
+                    }          
+                }, 3000); //3000 == 3sec
                 this.broadcast("Starting game in 3 seconds...", Team.Both);
             }
             else{
                 //broadcast
-                this.announceToPlayer(playerID, "Not enough players to start game!");
+                this.announceToPlayer(playerID, "Not enough players to start the game!");
             }
         }
 
