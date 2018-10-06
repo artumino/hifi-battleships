@@ -206,7 +206,8 @@
             var computedDistance = (-PLAYGROUND_SIZE.x / 2) + i*xIncrement;
             
             playgroundLineIDs.push(Entities.addEntity({
-                type: "Quad",
+                type: "Shape",
+                shape: "Quad",
                 position: Vec3.sum(properties.position, {x: computedDistance, y: yOffset, z: verticalLinesZ}),
                 rotation: properties.rotation,
                 parentID: this.entityID,
@@ -217,7 +218,8 @@
             }));
 
             playgroundLineIDs.push(Entities.addEntity({
-                type: "Quad",
+                type: "Shape",
+                shape: "Quad",
                 position: Vec3.sum(properties.position, {x: computedDistance, y: yOffset, z: -verticalLinesZ}),
                 rotation: properties.rotation,
                 parentID: this.entityID,
@@ -234,7 +236,8 @@
             var computedDistance = zOffset + i*zIncrement;
 
             playgroundLineIDs.push(Entities.addEntity({
-                type: "Quad",
+                type: "Shape",
+                shape: "Quad",
                 position: Vec3.sum(properties.position, {x: horizontallLinesX, y: yOffset, z: computedDistance}),
                 rotation: properties.rotation,
                 parentID: this.entityID,
@@ -245,7 +248,8 @@
             }));
 
             playgroundLineIDs.push(Entities.addEntity({
-                type: "Quad",
+                type: "Shape",
+                shape: "Quad",
                 position: Vec3.sum(properties.position, {x: horizontallLinesX, y: yOffset, z: -computedDistance}),
                 rotation: properties.rotation,
                 parentID: this.entityID,
