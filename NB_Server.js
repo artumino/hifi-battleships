@@ -60,7 +60,7 @@
     var playgroundLineIDs = [];
 
     //Misc
-    var gameDescriptioID;
+    var gameDescriptionID;
 
     //GameState
     var gameState =
@@ -175,7 +175,7 @@
         this.buildPlayground(properties);
         
         //create more stuff TODO
-        gameDescriptioID = Entities.addEntity({
+        gameDescriptionID = Entities.addEntity({
             type: "Text",
             position: Vec3.sum(properties.position, {x: -teamBoardsXOffset * 1.3, y: 0, z: 0}),
             rotation: Quat.multiply(properties.rotation, Quat.fromPitchYawRollDegrees(0,-90,0)),
@@ -184,7 +184,7 @@
             userData: "{ \"grabbableKey\": { \"grabbable\": false } }",
             dimensions: {x: 2, y: 1.5, z:0.01}
           });
-        print("gameDescriptioID created: " + gameDescriptioID);
+        print("gameDescriptionID created: " + gameDescriptionID);
     };
 
     NB_Server.prototype.buildPlayground = function(properties) 
@@ -201,11 +201,12 @@
         var horizontallLinesX = (verticalLineDimension.x / 2);
 
         // Creates vertical lines
-        var k = 0;
         for(var i = 0; i < PLAYGROUND_DIVISIONS.x; i++)
         {
             var computedDistance = (-PLAYGROUND_SIZE.x / 2) + i*xIncrement;
-            playgroundLineIDs[k] = Entities.addEntity({
+            print("Generating v_line " + i + " at distance " + computedDistance);
+            
+            playgroundLineIDs.push(Entities.addEntity({
                 type: "Box",
                 position: {x: computedDistance, y: yOffset, z: verticalLinesZ},
                 rotation: properties.rotation,
@@ -213,8 +214,9 @@
                 userData: "{ \"grabbableKey\": { \"grabbable\": false }}",
                 collisionless: true,
                 dimensions: verticalLineDimension
-            });
-            playgroundLineIDs[k+1] = Entities.addEntity({
+            }));
+
+            playgroundLineIDs.push(Entities.addEntity({
                 type: "Box",
                 position: {x: computedDistance, y: yOffset, z: -verticalLinesZ},
                 rotation: properties.rotation,
@@ -222,15 +224,16 @@
                 userData: "{ \"grabbableKey\": { \"grabbable\": false }}",
                 collisionless: true,
                 dimensions: verticalLineDimension
-            });
-            k = i+2;
+            }));
         }
 
         //Creates horizontal lines
         for(var i = 0; i < PLAYGROUND_DIVISIONS.y; i++)
         {
             var computedDistance = (-PLAYGROUND_SIZE.z / 2) + i*zIncrement;
-            playgroundLineIDs[k] = Entities.addEntity({
+            print("Generating h_line " + i + " at distance " + computedDistance);
+
+            playgroundLineIDs.push(Entities.addEntity({
                 type: "Box",
                 position: {x: horizontallLinesX, y: yOffset, z: computedDistance},
                 rotation: properties.rotation,
@@ -238,8 +241,9 @@
                 userData: "{ \"grabbableKey\": { \"grabbable\": false }}",
                 collisionless: true,
                 dimensions: horizontalLineDimension
-            });
-            playgroundLineIDs[k+1] = Entities.addEntity({
+            }));
+            
+            playgroundLineIDs.push(Entities.addEntity({
                 type: "Box",
                 position: {x: horizontallLinesX, y: yOffset, z: -computedDistance},
                 rotation: properties.rotation,
@@ -247,8 +251,7 @@
                 userData: "{ \"grabbableKey\": { \"grabbable\": false }}",
                 collisionless: true,
                 dimensions: horizontalLineDimension
-            });
-            k = i+2;
+            }));
         }
     }
 
