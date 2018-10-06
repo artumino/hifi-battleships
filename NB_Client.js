@@ -22,7 +22,6 @@
   NB_Client.prototype = {
     preload: function(entityID) {
       this.entityID = entityID;
-      Window.displayAnnouncement("Registering for messages on channel " + TEAM_CHANNEL);
       Messages.subscribe(TEAM_CHANNEL);
       Messages.messageReceived.connect(this.parseTeamComp);
     },
@@ -33,7 +32,6 @@
     {
       if(channel == TEAM_CHANNEL)
       {
-        Window.displayAnnouncement("Got message from " + senderID);
         var data = JSON.parse(message);
         var redTeamComp = "Red Team:\n";
         var yellowTeamComp = "Yellow Team:\n";
