@@ -184,7 +184,7 @@
         var yOffset = (LINE_STROKE/2) - (SUBMARINE_DIMENSIONS.y/2);
         var zOffset = (LINE_STROKE/2);
         var verticalLinesZ = zOffset + (verticalLineDimension.z / 2);
-        var horizontallLinesX = (verticalLineDimension.x / 2);
+        var horizontallLinesX = ((verticalLineDimension.x + LINE_STROKE) / 2);
 
         // Creates vertical lines
         for(var i = 0; i < PLAYGROUND_DIVISIONS.x; i++)
@@ -282,7 +282,33 @@
         var data = eventInfo[2]; //Optional
 
         //TODO
-        this.announceToPlayer(playerID, "I will work one day!");
+        //this.announceToPlayer(playerID, "I will work one day!");
+        if(gameState.stage == GameStage.Register)
+        {
+            var RedTeam = gameState.redPlayers;
+            var YellowTeam = gameState.yellowPlayers;
+            //check if already 1 player on both teams
+            if( RedTeam.length != 0 && YellowTeam.length != 0){
+                
+                //change gameState to stop the registration
+                gameStage.stage = GameStage.PreGame;
+
+                //start timer
+                var index = 0;
+                timerToStartInterval = setInterval(timerToStart, 3000,index); //3000 == 3sec
+                if(index == 3){
+                    clearInterval(timerToStartInterval);
+                    //all ready to go! broadcast message
+                    this.announceToPlayer(playerID, "GAME READY!");                    
+                    //this.startGame(); Function TODO                                        
+                }
+            }
+            else{
+                //broadcast
+                this.announceToPlayer(playerID, "Not enough players to start game!");
+            }
+        }
+
     };
     //#endregion
 

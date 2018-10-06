@@ -45,8 +45,10 @@ function NB_Lib(entityID)
 
 NB_Lib.prototype.getAbsolutePosition = function(relativePosition)
 {
-    var position = Entities.getEntityProperties(this.entityID, ["position"]).position;
-    return Vec3.sum(position, relativePosition);
+    var properties = Entities.getEntityProperties(this.entityID, ["position", "rotation"]);
+    return Vec3.sum(properties.position, Vec3.multiplyQbyV(properties.rotation, relativePosition));
+    //var position = Entities.getEntityProperties(this.entityID, ["position"]).position;
+    //return Vec3.sum(position, relativePosition);
 }
 
 NB_Lib.prototype.getAbsoluteRotatedPosition = function(relativePosition)
@@ -61,19 +63,29 @@ NB_Lib.prototype.getAbsoluteRotation= function(relativeRotationEuler)
     return Quat.multiply(rotation, Quat.fromPitchYawRollDegrees(relativeRotationEuler.x,relativeRotationEuler.y,relativeRotationEuler.z));
 }
 
-NB_Lib.prototype.getCellCenter = function(x,y)
+NB_Lib.prototype.getCellCenter = function(x,y,team)
 {
+    var multiplier = (team == Team.Red) ? -1 : 1;
     var xIncrement = PLAYGROUND_SIZE.x / (PLAYGROUND_DIVISIONS.x - 1);
     var zIncrement = PLAYGROUND_SIZE.z / (PLAYGROUND_DIVISIONS.y - 1);
-    var yOffset = (LINE_STROKE/2) - (SUBMARINE_DIMENSIONS.y/2);
     var zOffset = (LINE_STROKE/2);
-    var verticalLinesZ = zOffset + (verticalLineDimension.z / 2);
-    var horizontallLinesX = (verticalLineDimension.x / 2);
-    var computedXDistance = (-PLAYGROUND_SIZE.x / 2) + i*xIncrement;
-    var computedYDistance = zOffset + i*zIncrement;
+
+    //Calculate center of cell
+    var computedXDistance = ((-PLAYGROUND_SIZE.x) + x*xIncrement + (x+1)*xIncrement)/2;
+    var computedZDistance = (zOffset*2 + y*zIncrement + (y+1)*zIncrement) / 2;
+
+    return this.getAbsoluteRotatedPosition({x: computedXDistance, y: -SUBMARINE_DIMENSIONS.y/2, z: multiplier * computedZDistance})
 }
 
 function helloWorld()
 {
     print("Hello World!");
+}
+
+//Function that will remind people of how many seconds remain to the start of the game
+//send message only on the 3-2-and 1 indexes.
+function timerToStart(index)
+{
+    index++;
+
 }
