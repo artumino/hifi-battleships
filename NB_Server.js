@@ -208,7 +208,7 @@
             
             playgroundLineIDs.push(Entities.addEntity({
                 type: "Box",
-                position: {x: computedDistance, y: yOffset, z: verticalLinesZ},
+                position: Vec3.sum(properties.position, {x: computedDistance, y: yOffset, z: verticalLinesZ}),
                 rotation: properties.rotation,
                 parentID: this.entityID,
                 userData: "{ \"grabbableKey\": { \"grabbable\": false }}",
@@ -218,7 +218,7 @@
 
             playgroundLineIDs.push(Entities.addEntity({
                 type: "Box",
-                position: {x: computedDistance, y: yOffset, z: -verticalLinesZ},
+                position: Vec3.sum(properties.position, {x: computedDistance, y: yOffset, z: -verticalLinesZ}),
                 rotation: properties.rotation,
                 parentID: this.entityID,
                 userData: "{ \"grabbableKey\": { \"grabbable\": false }}",
@@ -235,17 +235,17 @@
 
             playgroundLineIDs.push(Entities.addEntity({
                 type: "Box",
-                position: {x: horizontallLinesX, y: yOffset, z: computedDistance},
+                position: Vec3.sum(properties.position, {x: horizontallLinesX, y: yOffset, z: computedDistance}),
                 rotation: properties.rotation,
                 parentID: this.entityID,
                 userData: "{ \"grabbableKey\": { \"grabbable\": false }}",
                 collisionless: true,
                 dimensions: horizontalLineDimension
             }));
-            
+
             playgroundLineIDs.push(Entities.addEntity({
                 type: "Box",
-                position: {x: horizontallLinesX, y: yOffset, z: -computedDistance},
+                position: Vec3.sum(properties.position, {x: horizontallLinesX, y: yOffset, z: -computedDistance}),
                 rotation: properties.rotation,
                 parentID: this.entityID,
                 userData: "{ \"grabbableKey\": { \"grabbable\": false }}",
