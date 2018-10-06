@@ -24,7 +24,6 @@
 
     //Strings
     const GAME_DESCRIPTION = "To Join a Team press the button at the respective submarine.\n\nTo start a game press start button."
-    const TEAM_CHANNEL = "com.corrado.TeamCompChannel";
 
 
     //Enums
@@ -62,7 +61,8 @@
     {
         stage: GameStage.Register,
         yellowPlayers: [],
-        redPlayers: []
+        redPlayers: [],
+        playerNames: {}
     };
 
 
@@ -180,6 +180,7 @@
         //Register player to the team
         var teamID = eventInfo[0];
         var playerID = eventInfo[1];
+        var data = eventInfo[2]; //Optional
 
         if(gameState.stage == GameStage.Register)
         {
@@ -197,6 +198,7 @@
                     oppositeTeam.splice(oppositeTeamIndex, 1); //Remove from opposite team, add to new
 
                 selectedTeam.push(playerID);
+                gameState.playerNames[playerID] = data;
                 this.announceToPlayer(playerID, "Registered to team " + ((teamID == Team.Red) ? "Red" : "Yellow"));
             }
 
@@ -211,16 +213,25 @@
     //Utilities
     NB_Server.prototype.updateTeams = function()
     {
-        var payload = 
+        var redTeamComp = "Red Team:\n";
+        var yellowTeamComp = "Yellow Team:\n";
+
+        for (i = 0; i < gameState.yellowPlayers.length; i++)
         {
-            redPlayers: gameState.redPlayers,
-            yellowPlayers: gameState.yellowPlayers,
-            redTeamBoardID: redTeamBoardID,
-            yellowTeamBoardID: yellowTeamBoardID,
-            entityID: this.entityID
+            yellowTeamComp += gameState.playerNames[gameState.yellowPlayers[i]]  + "\n";
         }
-        var messageJson = JSON.stringify(payload);
-        Messages.sendMessage(TEAM_CHANNEL, messageJson);
+
+        for (i = 0; i < gameState.redPlayers.length; i++)
+        {
+            redTeamComp += gameState.playerNames[gameState.redPlayers[i]] + "\n";
+        }
+
+        Entities.editEntity(redTeamBoardID, {
+            text: redTeamComp
+        });
+        Entities.editEntity(yellowTeamBoardID, {
+            text: yellowTeamComp
+        });
     }
 
     NB_Server.prototype.announceToPlayer = function(playerID, message)

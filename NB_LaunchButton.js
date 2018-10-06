@@ -23,7 +23,7 @@
       btnPress: function(entityID, pointerEvent) {
         var properties = Entities.getEntityProperties(this.entityID, ["userData", "parentID"]);
         var userData = JSON.parse(properties.userData);
-        Entities.callEntityServerMethod(properties.parentID, "launchButtonPressed", [userData.teamId, MyAvatar.sessionUUID]);
+        Entities.callEntityServerMethod(properties.parentID, "launchButtonPressed", [userData.teamId, MyAvatar.sessionUUID, MyAvatar.sessionDisplayName]);
       },
       unload: function(entityID) {
           //Unload....
