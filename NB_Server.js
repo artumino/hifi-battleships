@@ -300,10 +300,10 @@
                     that.broadcast("GAME READY!", Team.Both);  
                     //after game is ready create stuff
                     for(var i in RedTeam){
-                        that.startGame(Team.Red);
+                        that.startGame(i, Team.Red);
                     }
                     for(var j in YellowTeam){
-                        that.startGame(Team.Yellow);
+                        that.startGame(i, Team.Yellow);
                     }          
                 }, 3000); //3000 == 3sec
                 this.broadcast("Starting game in 3 seconds...", Team.Both);
@@ -355,6 +355,11 @@
     NB_Server.prototype.announceToPlayer = function(playerID, message)
     {
         Entities.callEntityClientMethod(playerID, this.entityID, "announceMessage", [message]);
+    }
+
+    NB_Server.prototype.startGame = function(playerID, team)
+    {
+        Entities.callEntityClientMethod(playerID, this.entityID, "startGame", [team]);
     }
 
     NB_Server.prototype.broadcast = function(message, team)
