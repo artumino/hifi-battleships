@@ -301,11 +301,11 @@
                     //after game is ready create stuff
                     for(var i in RedTeam){
                         print("Starting game for " + i);
-                        that.startGame(i, Team.Red);
+                        that.startGame(RedTeam[i], Team.Red);
                     }
                     for(var j in YellowTeam){
                         print("Starting game for " + j);
-                        that.startGame(j, Team.Yellow);
+                        that.startGame(YellowTeam[j], Team.Yellow);
                     }          
                 }, 3000); //3000 == 3sec
                 this.broadcast("Starting game in 3 seconds...", Team.Both);
