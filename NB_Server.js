@@ -204,7 +204,6 @@
         for(var i = 0; i < PLAYGROUND_DIVISIONS.x; i++)
         {
             var computedDistance = (-PLAYGROUND_SIZE.x / 2) + i*xIncrement;
-            print("Generating v_line " + i + " at distance " + computedDistance);
             
             playgroundLineIDs.push(Entities.addEntity({
                 type: "Box",
@@ -230,8 +229,7 @@
         //Creates horizontal lines
         for(var i = 0; i < PLAYGROUND_DIVISIONS.y; i++)
         {
-            var computedDistance = (-PLAYGROUND_SIZE.z / 2) + i*zIncrement;
-            print("Generating h_line " + i + " at distance " + computedDistance);
+            var computedDistance = zOffset + i*zIncrement;
 
             playgroundLineIDs.push(Entities.addEntity({
                 type: "Box",
