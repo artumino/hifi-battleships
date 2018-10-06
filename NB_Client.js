@@ -49,6 +49,10 @@
     var rotation = Entities.getEntityProperties(this.entityID, ["rotation"]).rotation;
     var xIncrement = PLAYGROUND_SIZE.x / PLAYGROUND_DIVISIONS.x;
     var zIncrement = PLAYGROUND_SIZE.z / PLAYGROUND_DIVISIONS.y;
+
+    var currentScriptURL = Entities.getEntityProperties(this.entityID, ["script"]).script;
+    var scriptURLBase = currentScriptURL.substring(0, currentScriptURL.lastIndexOf('/')) + "/NB_SelectionItem.js";
+    
     selectionQuadsIDs.push(Entities.addEntity({
       type: "Shape",
       shape: "Quad",
@@ -59,7 +63,7 @@
       collisionless: true,
       canCastShadow: false,
       clientOnly: true,
-      script: 'NB_SelectionItem.js',
+      script: scriptURLBase,
       dimensions: {x: xIncrement, z: zIncrement}
     }));
   };
