@@ -29,11 +29,11 @@
                 "y": -1.52587890625e-05,
                 "z": -1.52587890625e-05
             },
-            "script": "https://raw.githubusercontent.com/artumino/hifi-battleships/ba68efce9ecfe779c06651216963c7d72729276c/NB_Client.js",
-            "serverScripts": "https://raw.githubusercontent.com/artumino/hifi-battleships/ba68efce9ecfe779c06651216963c7d72729276c/NB_Server.js",
+            "script": "https://raw.githubusercontent.com/artumino/hifi-battleships/5c90669c7a9b7a3e957d0f734e9cf319dc463529/NB_Client.js",
+            "serverScripts": "https://raw.githubusercontent.com/artumino/hifi-battleships/5c90669c7a9b7a3e957d0f734e9cf319dc463529/NB_Server.js",
             "shapeType": "box",
             "type": "Zone",
-            "userData": "{\"grabbableKey\":{\"grabbable\":false}, \"libraryScriptURL\": \"https://raw.githubusercontent.com/artumino/hifi-battleships/ba68efce9ecfe779c06651216963c7d72729276c/NB_Lib.js\"}"
+            "userData": "{\"grabbableKey\":{\"grabbable\":false}, \"libraryScriptURL\": \"https://raw.githubusercontent.com/artumino/hifi-battleships/5c90669c7a9b7a3e957d0f734e9cf319dc463529/NB_Lib.js\"}"
         }
     ],
     "Id": "{e2faaab6-ff4c-40d9-b40d-d6f6f5d6e603}",
