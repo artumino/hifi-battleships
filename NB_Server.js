@@ -42,7 +42,7 @@
 
     function NB_Server()
     {
-        this.remotelyCallable = ["launchButtonPressed"];
+        this.remotelyCallable = ["launchButtonPressed","launchGameButtonPressed"];
     };
 
     NB_Server.prototype = {
@@ -163,7 +163,7 @@
         gameLaunchResetButtonID = Entities.addEntity({
             type: "Model",
             modelURL: LAUNCHBUTTON_FBX_PATH,
-            position: this.lib.getAbsolutePosition({x: -teamBoardsXOffset * 1.3, y: (LAUNCHBUTTON_DIMENSIONS.y / 2)-(SUBMARINE_DIMENSIONS.y/2), z: 0}),
+            position: this.lib.getAbsolutePosition({x: -(teamBoardsXOffset * 1.3) - LAUNCHBUTTON_DIMENSIONS.x, y: (LAUNCHBUTTON_DIMENSIONS.y / 2)-(SUBMARINE_DIMENSIONS.y/2), z: 0}),
             rotation: this.lib.getAbsoluteRotation({x: 0, y: 0, z: 0}),
             parentID: this.entityID,
             userData: "{ \"grabbableKey\": { \"grabbable\": false }, \"teamId\": 1 }",
