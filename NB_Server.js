@@ -16,8 +16,11 @@
 
     //Submarines
     var yellowSubmarineID;
-    var yellowLaunchButtonID;
     var redSubmarineID;
+
+    //Buttons
+    var gameLaunchResetButtonID;
+    var yellowLaunchButtonID;
     var redLaunchButtonID;
 
     //Playground Graphics
@@ -168,7 +171,7 @@
             script: LAUNCHGAMEBUTTON_SCRIPT_PATH,
             dimensions: LAUNCHBUTTON_DIMENSIONS
           });
-        print("gameLaunchButtonID created: " + gameLaunchButtonID);
+        print("gameLaunchButtonID created: " + gameLaunchResetButtonID);
     };
 
     NB_Server.prototype.buildPlayground = function(properties) 
