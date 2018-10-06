@@ -42,10 +42,7 @@ const Team = {
 
     }
 
-    NB_Lib.prototype = 
-    {
-        entityID = "{}"
-    };
+    NB_Lib.prototype = {};
 
     NB_Lib.prototype.getAbsolutePosition = function(relativePosition)
     {
