@@ -36,11 +36,25 @@ const Team = {
 }
 //#endregion
 
-function getAbsolutePosition(relativePosition)
-{
-    var position = Entities.getEntityProperties(this.entityID, ["position"]).position;
-    return Vec3.sum(position, relativePosition);
-}
+(function(){
+    function NB_Lib()
+    {
+
+    }
+
+    NB_Lib.prototype = 
+    {
+        entityID = "{}"
+    };
+
+    NB_Lib.prototype.getAbsolutePosition = function(relativePosition)
+    {
+        var position = Entities.getEntityProperties(this.entityID, ["position"]).position;
+        return Vec3.sum(position, relativePosition);
+    }
+
+    return new NB_Lib();
+});
 
 function helloWorld()
 {
