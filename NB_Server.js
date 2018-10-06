@@ -220,10 +220,10 @@
     {
         var payload = 
         {
-            redPlayers = gameState.redPlayers,
-            yellowPlayers = gameState.yellowPlayers,
-            redTeamBoardID = redTeamBoardID,
-            yellowTeamBoardID = yellowTeamBoardID
+            redPlayers: gameState.redPlayers,
+            yellowPlayers: gameState.yellowPlayers,
+            redTeamBoardID: redTeamBoardID,
+            yellowTeamBoardID: yellowTeamBoardID
         }
         Messages.sendMessage(TEAM_CHANNEL, payload);
     }
