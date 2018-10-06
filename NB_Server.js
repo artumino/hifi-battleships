@@ -191,8 +191,8 @@
     {
         //Number of lines to compute for one side
         var lineStroke = 0.1;
-        var horizontalLineDimension = { x: PLAYGROUND_SIZE.x, y: lineHeight, z: lineHeight };
-        var verticalLineDimension = { x: lineHeight, y: lineHeight, z: PLAYGROUND_SIZE.z };
+        var horizontalLineDimension = { x: PLAYGROUND_SIZE.x, y: lineStroke, z: lineStroke };
+        var verticalLineDimension = { x: lineStroke, y: lineStroke, z: PLAYGROUND_SIZE.z };
         var xIncrement = PLAYGROUND_SIZE.x / (PLAYGROUND_DIVISIONS.x - 1);
         var zIncrement = PLAYGROUND_SIZE.z / (PLAYGROUND_DIVISIONS.y - 1);
         var yOffset = (lineStroke/2) - (SUBMARINE_DIMENSIONS.y/2);
